@@ -1,0 +1,23 @@
+//Investments:
+
+{
+    "platform_user_id": "1234Plataform_User_ID",
+    "segment_id": "54321Segment_ID",
+    "user_segment_id": "123456User_Segment_ID"
+}
+
+//Segments:
+
+{
+    "mautic_segment_id": "1234Mautic_Segment_ID",
+    "platform_equity_id": "54321Platform_Equity_ID",
+    "platform_step_id": "123456Platform_Step_ID"
+}
+
+//Users:
+
+{
+    "platform_user_id": "123456Platform_User_ID",
+    "mautic_user_id": "54321Mautic_User_ID",
+    "user_email": "teste@user_email.com"
+}

@@ -17,6 +17,4 @@ const SegmentsSchema = new Schema({
     }
 });
 
-const Segments = mongoose.model("Segments", SegmentsSchema);
-
-module.exports = Segments;
+export const Segments = mongoose.model("Segments", SegmentsSchema);

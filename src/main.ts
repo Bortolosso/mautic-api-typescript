@@ -3,6 +3,13 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import path from "path";
 
+import routesInvestments from "./routes/investments";
+import routesSegments from "./routes/segments";
+import routesUsers from "./routes/users";
+
+const app = express();
+export const router = express.Router();
+
 function Database(){
     mongoose.Promise = global.Promise;
     try{
@@ -12,7 +19,7 @@ function Database(){
             console.info("Connected with success !");
         });
         mongoose.connection.on("error", (error) => {
-            console.log("There was an error connecting !");
+            console.error("There was an error connecting !");
         });
     }catch(err){
         console.error(err, "\n Error Database File !");
@@ -20,9 +27,6 @@ function Database(){
 };
 
 Database();
-
-const app = express();
-export const router = express.Router();
 
 function Server(app: Express){
 
@@ -43,3 +47,17 @@ function Server(app: Express){
 };
 
 Server(app);
+
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(router);
+
+router.use("/Investments", routesInvestments);
+router.use("/Segments", routesSegments);
+router.use("/Users", routesUsers);
+
+
+
+
+
+
