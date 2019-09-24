@@ -10,8 +10,8 @@ router.get("/", controller.allUsers); //Show all
 
 router.get("/:UserId", controller.OneUser); //Show One
 
-router.put("/:UserId", ); //Edit 
+router.put("/:UserId", controller.EditUser); //Edit 
 
-router.delete("/:UserId", ); //Delete
+router.delete("/:UserId", controller.DeleteUser); //Delete
 
 export default router;

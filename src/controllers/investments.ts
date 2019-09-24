@@ -33,7 +33,9 @@ export function createInvestments(req: Request, res: Response){
                             console.error(err);
                             return;
                         }else{
-                            console.log(`statusCode: ${res.statusCode} \n Request Successfull ;) !`);
+                            var statusCode = res.statusCode;
+                            console.log(`Status Code: ${statusCode} \n Request Successfull ;) !`);
+                            console.log(`URL:${url}`);
                             // console.log(body);
                         };
                     });
@@ -69,10 +71,85 @@ export let allInvestment = (req: Request, res: Response) => {
 export let OneInvestment = (req: Request, res: Response) => {
     let OneInvestment = Investments.findById(req.params.InvestmentId, (err: any, investment: any) => {
         if(err){
-            res.send("There was an error listing One Investment(ID) !");
+            res.send({
+                success: false
+            });
             console.error(err);
+            // res.send("There was an error listing One Investment(ID) !");
         }else{
             res.send(investment);
         };
     });
 };
+
+export let EditInvestment = (req: Request, res: Response) => {
+    let EditInvestment = Investments.findByIdAndUpdate(req.params.InvestmentId, req.body, (err: any, investment: any) =>{
+        if(err){
+            res.send({
+                success: false
+            });
+            console.error(`There was an error updating Investment !` ,err);
+            // res.send(`There was an error updating Investment !`);
+        }else{
+            res.send({
+                success: true
+            });
+            console.log(`Successfully update Investment !`);
+            // res.send(`Successfully update Investment !`);
+        };
+    });
+};
+
+export let DeleteInvestment = (req: Request, res: Response) => {
+    let DeleteInvestment = Investments.findById(req.params.InvestmentId, (err: any, investment: any) =>{
+        if(investment){
+            Investments.deleteOne({_id:req.params.InvestmentId}).then(() => {
+                res.send({
+                    success: true
+                });    
+                console.log(`Successfully delete Investment !`);
+            }).catch((err) => {
+                res.send({
+                    success: false
+                });
+                console.log(`There was an error deleting Investment !`, err);
+            });
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });
+                console.error(`There was an error deleting Investment !`, err);
+                // res.send(`There was an error deleting Investment !`);
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists !`);
+                // res.send(`Successfully delete Investment !`);
+            };
+        };
+    });
+};
+
+/* 
+
+export let DeleteInvestment = (req: Request, res: Response) => {
+    let DeleteInvestment = Investments.findByIdAndDelete(req.params.InvestmentId, (err: any, investment: any) =>{
+        if(err){
+            res.send({
+                success: false
+            });
+            console.error(`There was an error deleting Investment !`, err);
+            // res.send(`There was an error deleting Investment !`);
+        }else{
+            res.send({
+                success: true
+            });
+            console.log(`Successfully delete Investment !`);
+            // res.send(`Successfully delete Investment !`);
+        };
+    });
+};
+
+*/

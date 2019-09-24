@@ -58,3 +58,53 @@ export let OneSegment = (req: Request, res: Response) => {
         };
     });
 };
+
+export let EditSegment = (req: Request, res: Response) => {
+    let EditSegment = Segments.findByIdAndUpdate(req.params.segmentId, req.body, (err: any, Segments: any) =>{
+        if(err){
+            res.send({
+                success: false
+            });
+            console.error(`There was an error updating Segment !` ,err);
+            // res.send(`There was an error updating Investment !`);
+        }else{
+            res.send({
+                success: true
+            });
+            console.log(`Successfully update Segment !`);
+            // res.send(`Successfully update Investment !`);
+        };
+    });
+};
+
+export let DeleteSegment = (req: Request, res: Response) => {
+    let DeleteSegments = Segments.findById(req.params.segmentId, (err: any, Segments: any) =>{
+        if(Segments){
+            Segments.deleteOne({_id:req.params.segmentId}).then(() => {
+                res.send({
+                    success: true
+                });    
+                console.log(`Successfully delete Segment !`);
+            }).catch((err: any) => {
+                res.send({
+                    success: false
+                });
+                console.log(`There was an error deleting Segment !`, err);
+            });
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });
+                console.error(`There was an error deleting Segment !`, err);
+                // res.send(`There was an error deleting Investment !`);
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists !`);
+                // res.send(`Successfully delete Investment !`);
+            };
+        };
+    });
+};

@@ -10,8 +10,8 @@ router.get("/", controller.allSegments); //Show all
 
 router.get("/:segmentId", controller.OneSegment); //Show One
 
-router.put("/:segmentId", ); //Edit 
+router.put("/:segmentId", controller.EditSegment); //Edit 
 
-router.delete("/:segmentId", ); //Delete
+router.delete("/:segmentId", controller.DeleteSegment); //Delete
 
 export default router;

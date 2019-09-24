@@ -10,8 +10,8 @@ router.get("/", controller.allInvestment); //Show all
 
 router.get("/:InvestmentId", controller.OneInvestment); //Show One
 
-router.put("/:InvestmentId", ); //Edit 
+router.put("/:InvestmentId", controller.EditInvestment); //Edit 
 
-router.delete("/:InvestmentId", ); //Delete
+router.delete("/:InvestmentId", controller.DeleteInvestment); //Delete
 
 export default router;

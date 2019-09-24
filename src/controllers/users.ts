@@ -58,3 +58,54 @@ export let OneUser = (req: Request, res: Response) => {
         };
     });
 };
+
+
+export let EditUser = (req: Request, res: Response) => {
+    let EditUser = Users.findByIdAndUpdate(req.params.UserId, req.body, (err: any, Users: any) =>{
+        if(err){
+            res.send({
+                success: false
+            });
+            console.error(`There was an error updating User !` ,err);
+            // res.send(`There was an error updating Investment !`);
+        }else{
+            res.send({
+                success: true
+            });
+            console.log(`Successfully update User !`);
+            // res.send(`Successfully update Investment !`);
+        };
+    });
+};
+
+export let DeleteUser = (req: Request, res: Response) => {
+    let DeleteUser = Users.findById(req.params.UserId, (err: any, Users: any) =>{
+        if(Users){
+            Users.deleteOne({_id:req.params.UserId}).then(() => {
+                res.send({
+                    success: true
+                });    
+                console.log(`Successfully delete User !`);
+            }).catch((err: any) => {
+                res.send({
+                    success: false
+                });
+                console.log(`There was an error deleting User !`, err);
+            });
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });
+                console.error(`There was an error deleting User !`, err);
+                // res.send(`There was an error deleting Investment !`);
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists !`);
+                // res.send(`Successfully delete Investment !`);
+            };
+        };
+    });
+};
