@@ -26,7 +26,7 @@ export function createInvestments(req: Request, res: Response){
                     success: true
                 });
                 Users.findOne({platform_user_id: req.body.platform_user_id}).then(() => {
-                    const url = `https://carloscarvalho:Hurst2019..@mautic.hurst.capital/api/segments/${req.body.segment_id}/contact/${req.body.user_id}/add`;
+                    const url = `https://carloscarvalho:Hurst2019..@mautic.hurst.capital/api/segments/${req.body.segment_id}/contact/${req.body.platform_user_id}/add`;
 
                     request.post(url, (err, body) => {
                         if(err){
@@ -34,8 +34,8 @@ export function createInvestments(req: Request, res: Response){
                             return;
                         }else{
                             var statusCode = res.statusCode;
-                            console.log(`Status Code: ${statusCode} \n Request Successfull ;) !`);
-                            console.log(`URL:${url}`);
+                            console.log(` URL:${url}`);
+                            console.log(` Status Code: ${statusCode} \n Request Successfull ;) !`);
                             // console.log(body);
                         };
                     });

@@ -55,9 +55,3 @@ app.use(router);
 router.use("/Investments", routesInvestments);
 router.use("/Segments", routesSegments);
 router.use("/Users", routesUsers);
-
-
-
-
-
-
