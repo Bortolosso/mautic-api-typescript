@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
+const BuildModel = mongoose.model;
 
 const UsersSchema =  new Schema({
     platform_user_id:{
@@ -17,4 +18,4 @@ const UsersSchema =  new Schema({
     }
 });
 
-export const Users = mongoose.model("Users", UsersSchema);
+export const Users = BuildModel("Users", UsersSchema);

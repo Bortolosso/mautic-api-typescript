@@ -50,11 +50,20 @@ export let allSegments = (req: Request, res: Response) => {
 
 export let OneSegment = (req: Request, res: Response) => {
     let OneSegment = Segments.findById(req.params.segmentId, (err: any, Segments: any) => {
-        if(err){
-            res.send("There was an error listing One Segment(ID) !");
-            console.error(err);
-        }else{
+        if(Segments != null){
             res.send(Segments);
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });    
+                console.error("There was an error listing One Segment(ID) !");
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists ! Try other ID...`);
+            };
         };
     });
 };
@@ -102,7 +111,7 @@ export let DeleteSegment = (req: Request, res: Response) => {
                 res.send({
                     success: false
                 });
-                console.log(`ID not exists !`);
+                console.log(`ID not exists ! Try other ID...`);
                 // res.send(`Successfully delete Investment !`);
             };
         };

@@ -7,9 +7,6 @@ import routesInvestments from "./routes/investments";
 import routesSegments from "./routes/segments";
 import routesUsers from "./routes/users";
 
-const app = express();
-export const router = express.Router();
-
 function Database(){
     mongoose.Promise = global.Promise;
     try{
@@ -26,14 +23,19 @@ function Database(){
     };
 };
 
-Database();
+const app = express();
+export const router = express.Router();
 
-function Server(app: Express){
+function Init_Server(app: Express){
+    
+    try{
+        Database();
+    }catch(err){
+        console.log(`Error call function 'Database()' !` , err);
+    };
 
     app.use(bodyParser.json());
-
     app.use(express.static(path.join(__dirname, "public")));
-
     app.use(router);
 
     const PORT:number = 8081;
@@ -44,14 +46,30 @@ function Server(app: Express){
     }catch(err){
         console.error(`Error connect server http://localhost:${PORT}`);
     };
+
+    try{
+        ConfigServer();
+    }catch(err){
+        console.log(`Error call function 'ConfigServer()' !` , err);
+    };
+
+    function ConfigServer(){
+        app.use(bodyParser.json());
+        app.use(express.static(path.join(__dirname, "public")));
+        app.use(router);
+
+        router.use(function timeLog(req, res, next) {
+            console.log('Time: ', Date.now());
+            next();
+        }); //Middleware
+        router.use("/Investments", routesInvestments);
+        router.use("/Segments", routesSegments);
+        router.use("/Users", routesUsers);
+    };
 };
 
-Server(app);
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(router);
-
-router.use("/Investments", routesInvestments);
-router.use("/Segments", routesSegments);
-router.use("/Users", routesUsers);
+try{
+    Init_Server(app);
+}catch(err){
+    console.log(`Error call function 'Init_Server()' !` , err);
+};

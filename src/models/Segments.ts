@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
+const BuildModel = mongoose.model;
 
 const SegmentsSchema = new Schema({
     mautic_segment_id:{
@@ -17,4 +18,4 @@ const SegmentsSchema = new Schema({
     }
 });
 
-export const Segments = mongoose.model("Segments", SegmentsSchema);
+export const Segments = BuildModel("Segments", SegmentsSchema);

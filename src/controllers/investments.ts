@@ -1,6 +1,5 @@
 import request from "request";
 import express, {Response, Request} from "express";
-// import { raw } from "body-parser";
 
 import {Investments} from "../models/Investments";
 import {Users} from "../models/Users";
@@ -70,14 +69,20 @@ export let allInvestment = (req: Request, res: Response) => {
 
 export let OneInvestment = (req: Request, res: Response) => {
     let OneInvestment = Investments.findById(req.params.InvestmentId, (err: any, investment: any) => {
-        if(err){
-            res.send({
-                success: false
-            });
-            console.error(err);
-            // res.send("There was an error listing One Investment(ID) !");
-        }else{
+        if(OneInvestment != null){
             res.send(investment);
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });
+                console.error("There was an error listing One Investment(ID) !");
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists ! Try other ID...`);
+            };
         };
     });
 };
@@ -131,25 +136,3 @@ export let DeleteInvestment = (req: Request, res: Response) => {
         };
     });
 };
-
-/* 
-
-export let DeleteInvestment = (req: Request, res: Response) => {
-    let DeleteInvestment = Investments.findByIdAndDelete(req.params.InvestmentId, (err: any, investment: any) =>{
-        if(err){
-            res.send({
-                success: false
-            });
-            console.error(`There was an error deleting Investment !`, err);
-            // res.send(`There was an error deleting Investment !`);
-        }else{
-            res.send({
-                success: true
-            });
-            console.log(`Successfully delete Investment !`);
-            // res.send(`Successfully delete Investment !`);
-        };
-    });
-};
-
-*/

@@ -50,15 +50,23 @@ export let allUsers = (req: Request, res: Response) => {
 
 export let OneUser = (req: Request, res: Response) => {
     let OneUser = Users.findById(req.params.UserId, (err: any, Users: any) => {
-        if(err){
-            res.send("There was an error listing One User(ID) !");
-            console.error(err);
-        }else{
+        if(OneUser != null){
             res.send(Users);
+        }else{
+            if(err){
+                res.send({
+                    success: false
+                });
+                console.error("There was an error listing One User(ID) !");
+            }else{
+                res.send({
+                    success: false
+                });
+                console.log(`ID not exists ! Try other ID...`);
+            };
         };
     });
 };
-
 
 export let EditUser = (req: Request, res: Response) => {
     let EditUser = Users.findByIdAndUpdate(req.params.UserId, req.body, (err: any, Users: any) =>{
@@ -80,7 +88,7 @@ export let EditUser = (req: Request, res: Response) => {
 
 export let DeleteUser = (req: Request, res: Response) => {
     let DeleteUser = Users.findById(req.params.UserId, (err: any, Users: any) =>{
-        if(Users){
+        if(Users != null){
             Users.deleteOne({_id:req.params.UserId}).then(() => {
                 res.send({
                     success: true
@@ -103,7 +111,7 @@ export let DeleteUser = (req: Request, res: Response) => {
                 res.send({
                     success: false
                 });
-                console.log(`ID not exists !`);
+                console.log(`ID not exists ! Try other ID...`);
                 // res.send(`Successfully delete Investment !`);
             };
         };

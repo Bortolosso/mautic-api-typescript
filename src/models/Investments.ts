@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
+const BuildModel = mongoose.model;
 
 const InvestmentsSchema = new Schema({
     platform_user_id:{
@@ -17,4 +18,4 @@ const InvestmentsSchema = new Schema({
     }
 });
 
-export const Investments = mongoose.model("Investments", InvestmentsSchema);
+export const Investments = BuildModel("Investments", InvestmentsSchema);
