@@ -15,6 +15,10 @@ const UsersSchema =  new Schema({
     user_email:{
         type: String,
         required:false
+    },
+    date: {
+        type: Date,
+        default: Date.now()
     }
 });
 

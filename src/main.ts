@@ -11,7 +11,9 @@ function Database(){
     mongoose.Promise = global.Promise;
     try{
         mongoose.connect("mongodb://localhost/api-hurst", {
-            useNewUrlParser: true, useUnifiedTopology: true});
+            useNewUrlParser: true, 
+            useUnifiedTopology: true
+        });
         mongoose.connection.on("open", () => {
             console.info("Connected with success !");
         });

@@ -15,6 +15,10 @@ const InvestmentsSchema = new Schema({
     user_segment_added:{
         type:String,
         required:false
+    },
+    date: {
+        type: Date,
+        default: Date.now()
     }
 });
 

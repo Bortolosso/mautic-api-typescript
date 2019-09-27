@@ -15,6 +15,10 @@ const SegmentsSchema = new Schema({
     platform_step_id:{
         type:String,
         required: false
+    },
+    date: {
+        type: Date,
+        default: Date.now()
     }
 });
 
